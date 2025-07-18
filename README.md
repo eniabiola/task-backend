@@ -1,17 +1,20 @@
 # 📝 Laravel Task Management API
 
-A simple and test-driven Laravel API for managing tasks, tracking their statuses, and maintaining a status change history. Built with clean architecture principles, token-based authentication, and API resources for structured responses.
+A simple and test-driven Laravel API for managing tasks, updating their statuses, and tracking their status history.
+Built with clean architecture principles, role-based access control, token-based authentication, 
+API resources for structured responses, and comprehensive feature testing.
 
 ---
 
 ## 🚀 Features
 
 - ✅ User Registration & Login (Token-based via Laravel Sanctum)
-- ✅ Create, View, Update, and Delete Tasks
-- ✅ Assign and Change Task Status
-- ✅ View Available Task Statuses
-- ✅ Track and Retrieve Status History for Tasks
-- ✅ Fully Tested with Feature
+- ✅ Create, View, and Delete Tasks
+- ✅ Status Assignment & Valid Transitions
+- ✅ Task Status History Logging
+- ✅ Role-Based Permissions (User/Admin)
+- ✅ Audit Trail for Status Updates
+- ✅ Fully Tested with Feature & Unit Tests
 
 ---
 
@@ -19,9 +22,10 @@ A simple and test-driven Laravel API for managing tasks, tracking their statuses
 
 - **Framework**: Laravel 10+
 - **Authentication**: Laravel Sanctum
+- **Authorization**: Spatie Laravel-Permission
 - **Database**: MySQL / SQLite (for testing)
-- **Testing**: PHPUnit with Laravel's testing tools
-- **Formatting**: API Resources
+- **Testing**: PHPUnit, Laravel TestCase
+- **Architecture**: Service Layer, Form Requests, API Resources
 
 ---
 
@@ -33,7 +37,12 @@ app/
 │   ├── Controllers/
 │   │   └── API/       
 │   ├── Resources/     
-├── Models/            
+│   ├── Requests/   
+│   ├── DTO/       
+│   ├── Service/       
+├── Models/       
+├── Rules/       
+├── Traits/            
 
 database/
 ├── factories/         
@@ -81,15 +90,8 @@ php artisan test
 
 ### ✅ Feature Tests
 
-- **AuthTest**: Register, login, logout
-- **TaskTest**: Full CRUD & permission tests
-- **TaskStatusTest**: View all statuses
-- **TaskStatusHistoryTest**: View history, check access
-
 ### ✅ Unit Tests
 
-- **TaskResourceTest**: Validates structure and logic of JSON responses
-- Can be extended for other resources or custom logic
 
 ---
 
@@ -123,6 +125,7 @@ php artisan serve
 
 - Task comments or attachments
 - Due dates & reminders
+- Notifications for actions
 - Role-based permissions (e.g., admin vs user)
 - API rate limiting and throttling
 

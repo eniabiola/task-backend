@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -14,7 +15,7 @@ class AuthTest extends TestCase
 
     public function test_user_can_register()
     {
-
+        $this->seed(RolePermissionSeeder::class);
         $email = $this->faker->unique()->email;
         $name = $this->faker->name;
         $response = $this->postJson('/api/register', [

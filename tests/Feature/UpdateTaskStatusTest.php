@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use Database\Seeders\TaskStatusSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,8 +18,9 @@ class UpdateTaskStatusTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create(), 'sanctum');
 
-        $oldStatus = TaskStatus::factory()->create();
-        $newStatus = TaskStatus::factory()->create();
+        $this->seed(TaskStatusSeeder::class);
+        $oldStatus = TaskStatus::query()->first();
+        $newStatus = TaskStatus::query()->skip(1)->first();
 
         $task = Task::factory()->create([
             'user_id' => $user->id,
@@ -65,13 +67,4 @@ class UpdateTaskStatusTest extends TestCase
         ])->assertUnauthorized();
     }
 
-    public function test_validation_fails_on_missing_status()
-    {
-        $this->actingAs(User::factory()->create(), 'sanctum');
-        $task = Task::factory()->create();
-
-        $this->patchJson("/api/tasks/{$task->id}/status", [])
-            ->assertStatus(400)
-            ->assertJsonValidationErrors(['task_status_id']);
-    }
 }

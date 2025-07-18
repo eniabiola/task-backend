@@ -21,7 +21,7 @@ class AdminSingleUserTasksTest extends TestCase
         $this->seed(TaskStatusSeeder::class);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->assignRole('admin',);
 
         $user = User::factory()->create();
         $user->assignRole('user');
